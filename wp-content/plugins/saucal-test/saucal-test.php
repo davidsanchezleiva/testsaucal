@@ -14,11 +14,13 @@
 function saucal_content(){
 		$transient_res = get_transient('saucal_test_remote_array');
 
-		$response = wp_remote_get( 'https://jsonplaceholder.typicode.com/posts?userId=1' );
-				     
-		$body = json_decode( $response['body'] );
+		if ( ! $transient_res ){ 
 
-		if ( ! $transient_res ){ ?>
+			$response = wp_remote_get( 'https://jsonplaceholder.typicode.com/posts?userId=1' );
+					     
+			$body = json_decode( $response['body'] ); 
+		?>
+
 			<div class="saucal_test">
 				<div class="saucal_test_title">Saucal Test</div>
 				<div class="saucal_test_content">				     
@@ -99,6 +101,9 @@ function saucal_test_init() {
 	register_widget( 'saucal_test_widget' );
 }
 
+/* ------------------------------------------------
+	Display New tab in My Account
+------------------------------------------------ */
 function saucal_test_tab() {
     add_rewrite_endpoint( 'saucal-test', EP_ROOT | EP_PAGES );
 }
